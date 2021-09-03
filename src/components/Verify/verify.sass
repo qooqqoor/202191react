@@ -1,0 +1,80 @@
+.verify
+  height: 100vh
+  width: 100vw
+  background-color: rgba(20,20,20,0.8)
+  position: fixed
+  display: flex
+  justify-content: center
+  align-items: center
+  user-select: none
+
+  .card
+    width: 500px
+    height: 500px
+    background-color: rgba(0,0,0,0)
+    border-radius: 10px
+    position: relative
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    color: #fefefe
+    letter-spacing: 1px
+
+    .container
+      height: 400px
+      width: 400px
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+      align-items: center
+      position: relative
+
+
+      .linkbox
+
+        width: 33.33%
+        height: 33.33%
+        position: relative
+        display: flex
+        justify-content: center
+        align-items: center
+        z-index: 2
+        .circle
+          width: 25%
+          height: 25%
+          background-color: rgba(200,200,200,1)
+          border-radius: 50%
+          display: flex
+          justify-content: center
+          align-items: center
+          color: black
+          cursor: pointer
+
+          &.select
+            background-color: rgba(255,255,255,1)
+
+      .ans,.userQ,.userLine
+        height: 100%
+        width: 100%
+        position: absolute
+        left: 0
+        top: 0
+        z-index: 1
+        .anslink
+          position: absolute
+          width: 0
+          height: 2px
+          background-color: rgba(100,100,100,1)
+          //background-color: red
+          font-size: 30px
+          display: flex
+          justify-content: center
+          align-items: center
+          transform-origin: left top
+          .anslink_p
+            transform: translateX(-25px)
+            color: rgba(250,250,250,0.8)
+            font-size: 14px
+
+

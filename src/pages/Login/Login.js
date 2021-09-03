@@ -1,19 +1,21 @@
 import React ,{useState}from "react";
 import "./login.sass"
-import invisible from "../assets/invisible.png"
-import visibility from "../assets/visibility.png"
-import {setToken} from "../store/action/userAction'";
+import invisible from "../../assets/invisible.png"
+import visibility from "../../assets/visibility.png"
+import {setToken} from "../../store/action/userAction'";
 import {connect} from "react-redux";
-
+import Verify from "../../components/Verify/Verify"
 export const Login =  (props) => {
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
   const [seePassword, setSeePassword] = useState(true)
   const [load, setLoad] = useState(false)
-
+  const [verify, setVerify] = useState(false)
 
   const login = ()=>{
-    if(account!=""&&password!=""){
+
+
+
       fetch('/api/login', {
         method: 'POST',
 
@@ -34,13 +36,26 @@ export const Login =  (props) => {
         console.log(jsonData);
 
         console.log(props.userStatus)
-        props.setToken(jsonData.token)
+        localStorage.setItem('token', jsonData.token)
+        window.location.href='#/homepage'
 
       }).catch((err) => {
         console.log('錯誤:', err);
       })
-    }
 
+
+  }
+  const onSubmit = ()=>{
+    if(account!=""&&password!=""){
+      setVerify(true)
+    }
+  }
+  const VerifySuccess = () =>{
+    login()
+    setVerify(false)
+  }
+  const VerifyClose = ()=>{
+    setVerify(false)
   }
 
 
@@ -58,24 +73,17 @@ export const Login =  (props) => {
           <img src={seePassword?invisible:visibility} alt="" onClick={()=>{setSeePassword(!seePassword)}}/>
         </div>
         <a href="#/register" className={"registerBtn"}>註冊</a>
-        <button disabled={load||!account||!password} onClick={login}>登入</button>
+        <button disabled={load||!account||!password} onClick={onSubmit}>登入</button>
       </div>
+      {
+        verify?<Verify VerifySuccess={VerifySuccess} VerifyClose={VerifyClose}/>:null
+      }
+
     </div>
   );
 }
 
 
-const mapStateToProps = (state) => ({
-  userStatus: state.userReducer,
 
-});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setToken: (value) => {
-      dispatch(setToken(value));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

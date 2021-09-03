@@ -1,7 +1,7 @@
 import React ,{useState}from "react";
 import "./login.sass"
-import invisible from "../assets/invisible.png"
-import visibility from "../assets/visibility.png"
+import invisible from "../../assets/invisible.png"
+import visibility from "../../assets/visibility.png"
 
 export default (props) => {
   const [account, setAccount] = useState('')
