@@ -238,7 +238,7 @@ const Verify = (props)=>{
   }
   return(
     <div className={"verify"} onClick={(e)=>{
-      VerifyClose()
+      !start&&VerifyClose()
     }}>
 
       <div className="card">

@@ -69,20 +69,22 @@ export default (props) => {
   const isPassword = (password) => {
     const titlefootRegxp = /[a-zA-Z]/;
     let status = true
-
+    if(password<4){
+      status = false
+    }
     const passwordArray = password.split('')
-    // console.log(passwordArray)
 
     passwordArray.forEach((v,i)=>{
       if(i===0||i===(passwordArray.length-1)){
+
         if(!titlefootRegxp.test(v)){
           status = false
         }
       }else{
         const _v = parseInt(v)
-        console.log(_v)
-        if(!_v){
+        if(!_v&&_v!==0){
           status = false
+
         }
       }
     })
@@ -94,10 +96,12 @@ export default (props) => {
 
   const accountOnChange = (e)=>{
 
-    setAccountErr(!isEmail(e.target.value))
+    setAccountErr(!isEmail(e.target.value)&&e.target.value!=='')
     setAccount(e.target.value)
   }
   const passwordOnChange= (e)=>{
+    console.log(e.target.value)
+    console.log(isPassword(e.target.value),777)
     setPasswordErr(!isPassword(e.target.value))
     setPassword(e.target.value)
   }
@@ -129,7 +133,7 @@ export default (props) => {
           {passwordAgainErr&&<p className={'errText'}>與密碼不相符</p>}
         </div>
         <a href="#/login" className={"registerBtn"}>返回登入</a>
-        <button disabled={load||!account||(password.length<4)||!passwordAgain||password!==passwordAgain} onClick={register}>註冊</button>
+        <button disabled={load||accountErr||passwordErr||passwordAgainErr} onClick={register}>註冊</button>
       </div>
     </div>
   );
