@@ -20,6 +20,8 @@
       display: flex
       justify-content: flex-start
       align-items: center
+      position: relative
+      margin-bottom: 30px
       p
         width: 80px
       input
@@ -32,3 +34,18 @@
 
     .registerBtn
       margin: 10px 0
+
+    .err
+      color: red
+      input
+        border: red 1px solid
+        color: red
+        &:focus
+          border: red 1px solid
+    .errText
+      position: absolute
+      width: 200px
+      height: 30px
+      white-space: nowrap
+      transform: translateY(100%)
+      margin-left: 80px

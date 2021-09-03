@@ -2,7 +2,7 @@ import React ,{useState}from "react";
 import "./login.sass"
 import invisible from "../../assets/invisible.png"
 import visibility from "../../assets/visibility.png"
-import {setToken} from "../../store/action/userAction'";
+import Toast from "../../components/Toast";
 import {connect} from "react-redux";
 import Verify from "../../components/Verify/Verify"
 export const Login =  (props) => {
@@ -33,29 +33,42 @@ export const Login =  (props) => {
         // props.setToken()
         return response.json()
       }).then((jsonData) => {
+        if(!jsonData.success){
+          Toast(jsonData.message,'error')
+          setLoad(false)
+        }else{
+          localStorage.setItem('token', jsonData.token)
+          Toast(jsonData.message)
+          setTimeout(()=>{ window.location.href='#/homepage'},1000)
+
+        }
         console.log(jsonData);
 
         console.log(props.userStatus)
-        localStorage.setItem('token', jsonData.token)
-        window.location.href='#/homepage'
+
 
       }).catch((err) => {
+        Toast(err.message,'error')
         console.log('錯誤:', err);
+        setLoad(false)
       })
 
 
   }
   const onSubmit = ()=>{
     if(account!=""&&password!=""){
+      setLoad(true)
       setVerify(true)
     }
   }
   const VerifySuccess = () =>{
+
     login()
     setVerify(false)
   }
   const VerifyClose = ()=>{
     setVerify(false)
+    setLoad(false)
   }
 
 
