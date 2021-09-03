@@ -157,17 +157,16 @@ const Verify = (props)=>{
     const _widthy = mouseStart.y-e.clientY>0?mouseStart.y-e.clientY:-(mouseStart.y-e.clientY)
     const _width = Math.sqrt(_widthx*_widthx+_widthy*_widthy)
 
-    const _rotatex = mouseStart.x-e.clientX
-    const _rotatey = mouseStart.y-e.clientY
+    const _rotatex = e.clientX - mouseStart.x
+    const _rotatey = e.clientY - mouseStart.y
     let _deg
-
-    _deg = (_rotatex<0? -(_rotatey/_width  *(85) ): (_rotatey/_width  *85 )-180) //270
+    _deg = -(Math.atan2(_rotatex,_rotatey ) -1.55)
 
 
     const _rotate  = _deg
     setUserLineStyle({
       width: `${_width}px`,
-      transform: `rotate(${_rotate}deg)`
+      transform: `rotate(${_rotate}rad)`
     })
   }
   const submit = () =>{
@@ -239,11 +238,11 @@ const Verify = (props)=>{
   return(
     <div className={"verify"} onClick={(e)=>{
       !start&&VerifyClose()
-    }}>
+    }}onMouseLeave={start?onMouseLeave:null} onMouseMove={start?onMouseMove:null}>
 
-      <div className="card">
+      <div className="card" >
 
-        <div className="container" onClick={(e)=>e.stopPropagation()} onMouseUp={start?onMouseUp:null} onMouseLeave={start?onMouseLeave:null} onMouseMove={start?onMouseMove:null} style={{cursor: start?'pointer':'default'}}>
+        <div className="container" onClick={(e)=>e.stopPropagation()} onMouseUp={start?onMouseUp:null}  style={{cursor: start?'pointer':'default'}}>
           {
             array.map((v,i)=>{
               return(
