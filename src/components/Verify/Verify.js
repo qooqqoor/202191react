@@ -99,7 +99,7 @@ const Verify = (props)=>{
 
 
   const onMouseDown = (num,e)=>{
-    console.log('down',e)
+    // console.log('down',e)
     setStart(true)
     setMouseStart({
       x:e.clientX,
@@ -119,15 +119,15 @@ const Verify = (props)=>{
     setSelectDot(num.key)
   }
   const onMouseUp = ()=>{
-    console.log('up')
+    // console.log('up')
     submit()
   }
   const onMouseLeave = (num)=>{
-    console.log('leave')
+    // console.log('leave')
     submit()
   }
   const onMouseOver=(num,e)=>{
-    console.log('Over')
+    // console.log('Over')
     if(!num.select && dotCheck(num.key,selectArray[selectArray.length-1])){
 
       setArray(array.map((v)=>{
@@ -171,14 +171,14 @@ const Verify = (props)=>{
     })
   }
   const submit = () =>{
-    console.log(ans,selectArray)
+    // console.log(ans,selectArray)
     setStart(false)
     if(ans.toString()===selectArray.toString()){
-      console.log("驗證成功")
+      // console.log("驗證成功")
       Toast('驗證成功')
       VerifySuccess()
     }else{
-      console.log("驗證失敗")
+      // console.log("驗證失敗")
       Toast('驗證失敗','error')
       init()
     }

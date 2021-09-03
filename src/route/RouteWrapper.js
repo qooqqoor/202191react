@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Route } from 'react-router'
 import { connect } from "react-redux";
 import { Redirect } from 'react-router'
+import Toast from "../components/Toast";
 
 const RouteWrapper = (props) => {
   const {
@@ -32,16 +33,20 @@ const RouteWrapper = (props) => {
     }).then((response) => {
       return response.json();
     }).then((jsonData) => {
-      console.log(jsonData);
+      // console.log(jsonData);
 
       if(!jsonData.success){
-        window.location.href='#/login'
+
+        Toast('驗證失敗','error')
         localStorage.removeItem('token')
+        setTimeout(()=>{
+          window.location.href='#/login'
+        },1000)
       }else {
         setLoad(false)
       }
     }).catch((err) => {
-      console.log('錯誤:', err);
+      // console.log('錯誤:', err);
     })
   }
 

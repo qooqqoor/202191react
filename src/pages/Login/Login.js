@@ -42,14 +42,14 @@ export const Login =  (props) => {
           setTimeout(()=>{ window.location.href='#/homepage'},1000)
 
         }
-        console.log(jsonData);
+        // console.log(jsonData);
 
-        console.log(props.userStatus)
+        // console.log(props.userStatus)
 
 
       }).catch((err) => {
         Toast(err.message,'error')
-        console.log('錯誤:', err);
+        // console.log('錯誤:', err);
         setLoad(false)
       })
 

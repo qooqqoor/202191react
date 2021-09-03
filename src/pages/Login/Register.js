@@ -20,11 +20,11 @@ export default (props) => {
   const register = ()=>{
     setLoad(true)
     if(!isEmail(account)){
-      console.log("請輸入正確的信箱格式")
+      // console.log("請輸入正確的信箱格式")
       return
     }
     if(!isPassword(password)){
-      console.log("請輸入正確的密碼格式(首尾必須是英文；中間必須是數字)")
+      // console.log("請輸入正確的密碼格式(首尾必須是英文；中間必須是數字)")
       return
     }
 
@@ -42,7 +42,7 @@ export default (props) => {
         password: password
       })
     }).then((response) => {
-      console.log(response)
+      // console.log(response)
       return response.json()
     }).then((jsonData) => {
       if(jsonData.success){
@@ -56,7 +56,7 @@ export default (props) => {
       }
 
     }).catch((err) => {
-      console.log('錯誤:', err);
+      // console.log('錯誤:', err);
       setLoad(false)
     })
 
@@ -71,7 +71,7 @@ export default (props) => {
     let status = true
 
     const passwordArray = password.split('')
-    console.log(passwordArray)
+    // console.log(passwordArray)
 
     passwordArray.forEach((v,i)=>{
       if(i===0||i===(passwordArray.length-1)){
