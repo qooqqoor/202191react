@@ -19,14 +19,11 @@ export default (props) => {
 
   const register = ()=>{
     setLoad(true)
-    if(!isEmail(account)){
+    if(accountErr||passwordErr||passwordAgainErr){
       // console.log("請輸入正確的信箱格式")
       return
     }
-    if(!isPassword(password)){
-      // console.log("請輸入正確的密碼格式(首尾必須是英文；中間必須是數字)")
-      return
-    }
+    
 
 
     fetch('/api/register', {
