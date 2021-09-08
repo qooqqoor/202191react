@@ -14,7 +14,6 @@ const New =  lazy(()=> import('../pages/New'))
 
 
 const Routes = (props) => {
-  console.log(45546, props)
   return (
     <Switch>
       <Redirect path="/" to="/homepage" exact/>

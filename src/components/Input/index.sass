@@ -1,0 +1,32 @@
+.input_box
+  width: 380px
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  position: relative
+  margin-bottom: 30px
+  p
+    width: 80px
+  input
+    width: 250px
+    margin-right: 10px
+    height: 30px
+    font-size: 13px
+  image
+    width: 50px
+
+  &.err
+    color: red
+    input
+      border: red 1px solid
+      color: red
+      &:focus
+        border: red 1px solid
+  .errText
+    position: absolute
+    width: 200px
+    height: 30px
+    white-space: nowrap
+    transform: translateY(100%)
+    margin-left: 80px
+    color: red

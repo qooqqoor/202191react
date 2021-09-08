@@ -15,7 +15,8 @@
     "axios": "^0.21.1",
     "react-redux": "^7.2.4",
     "less": "^4.1.1",
-    "sass": "^1.36.0"
+    "sass": "^1.36.0",
+    "react-transition-group":"^4.4.2"
   },
   "scripts": {
     "start": "react-scripts start",

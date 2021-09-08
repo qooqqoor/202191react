@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import ReactDOM from "react-dom";
 import "./index.sass";
-const Toast = (text, state, time) => {
+const toast = (text, state, time) => {
   const alert = document.createElement("div");
   document.body.appendChild(alert);//severity={`${state ? state : "success"}`}
   const dom = ((
@@ -26,4 +26,4 @@ const Toast = (text, state, time) => {
   );
 };
 
-export default Toast;
+export default toast;

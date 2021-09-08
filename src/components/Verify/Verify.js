@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./verify.sass"
 import LinkBox from "./Linkbox.js"
 import LinkLine from "./LinkLine.js"
-import Toast from "../Toast";
+import toast from "../Toast";
 
 const resetArray = [
   {
@@ -174,11 +174,11 @@ const Verify = (props)=>{
     setStart(false)
     if(ans.toString()===selectArray.toString()){
       // console.log("驗證成功")
-      Toast('驗證成功')
+      toast('驗證成功')
       VerifySuccess()
     }else{
       // console.log("驗證失敗")
-      Toast('驗證失敗','error')
+      toast('驗證失敗','error')
       init()
     }
   }
