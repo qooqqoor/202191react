@@ -4,7 +4,7 @@ import invisible from "../../assets/invisible.png"
 import visibility from "../../assets/visibility.png"
 import toast from "../../components/Toast";
 import {connect} from "react-redux";
-import {setTokenAction} from "../../store/action/userAction'"
+import {setTokenAction} from "../../store/action/userAction"
 import Verify from "../../components/Verify/Verify"
 import Input from "../../components/Input";
 import { user as api } from "../../api";

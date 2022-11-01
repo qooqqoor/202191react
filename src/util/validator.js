@@ -1,7 +1,7 @@
 export const formCheck = (value,rule) =>{
   let error = false
 
-  if(value.length!==0){
+
     rule.forEach((v)=>{
       if(v==='email'){
         error = !isEmail(value)
@@ -15,11 +15,12 @@ export const formCheck = (value,rule) =>{
       if(v.same){
         error = v.same.value!==value
       }
+      if(v==='required') {
+        error =  v.length === 0
+      }
 
     })
-  }else{
-    error = true
-  }
+
 
   return error
 }

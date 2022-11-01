@@ -9,6 +9,7 @@ import {user as api} from "../../api";
 
 export default (props) => {
   const [account, setAccount] = useState('')
+  const [name, setName] = useState('')
   const [password, setPassword] = useState('')
   const [passwordAgain, setPasswordAgain] = useState('')
   const [load, setLoad] = useState(false)
@@ -25,12 +26,14 @@ export default (props) => {
       }
     }
     if(err){
+      setLoad(false)
       return
     }
     try{
       const res = await api.register({
         username: account,
-        password: password
+        password: password,
+        name: name,
       })
       toast(res.message)
       setTimeout(()=>{ history.push('/login')},1000)
@@ -46,32 +49,44 @@ export default (props) => {
 const form = [
   {
     type:'text',
-    rule:['email'],
+    rule:['required','email'],
     onChange:(v)=>{setAccount(v)},
     value:account,
     label:'帳號',
     errorText:'請輸入正確的email格式',
-    placeholder: '必須是信箱'
+    placeholder: '必須是信箱',
+    required: true
+  },
+  {
+    type:'text',
+    rule:[],
+    onChange:(v)=>{setName(v)},
+    value:name,
+    label:'使用者名稱',
+    errorText:'',
+    placeholder: '可選，對其他用戶顯示的名稱',
   },
   {
     type:'password',
-    rule:[{'length': {min:4,max:8}}, {'ex': {rxg: /^[A-z]\d+[A-z]$/}}],
+    rule:['required',{'length': {min:4,max:8}}, {'ex': {rxg: /^[A-z]\d+[A-z]$/}}],
     onChange:(v)=>{setPassword(v)},
     value:password,
     label:'密碼',
     errorText:'密碼首尾必須是英文；中間必須是數字',
     placeholder: '4-8字元；首尾必須是英文；中間必須是數字',
-    maxLength:8
+    maxLength:8,
+    required: true
   },
   {
     type:'password',
-    rule:[{'same': {value:password}}],
+    rule:['required',{'same': {value:password}}],
     onChange:(v)=>{setPasswordAgain(v)},
     value:passwordAgain,
     label:'確認密碼',
-    errorText:'確認密碼與密碼不相符',
+    errorText:'格式不相符',
     placeholder: '必須與密碼相符',
-    maxLength:8
+    maxLength:8,
+    required: true
   },
 ]
 
@@ -92,6 +107,7 @@ const form = [
                 errorText={v.errorText}
                 placeholder={v.placeholder}
                 maxLength={v.maxLength||null}
+                required={v.required}
               />
             )
           })

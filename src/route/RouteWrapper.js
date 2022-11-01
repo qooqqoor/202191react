@@ -3,7 +3,7 @@ import { Route } from 'react-router'
 import { connect } from "react-redux";
 import { Redirect } from 'react-router'
 import toast from "../components/Toast";
-import {cleanAllAction} from "../store/action/userAction'";
+import {cleanAllAction,setUserAction} from "../store/action/userAction";
 import {useHistory} from "react-router-dom"
 import { getToken } from "../util/localStorage";
 
@@ -15,44 +15,31 @@ const RouteWrapper = (props) => {
     layout: Layout,
     cleanAll,
     state,
+    setUser,
     ...rest
   } = props
   const [load,setLoad] = useState(true)
-
   useEffect(async ()=>{
     await VerifyPermissions()
   },[])
   const token = getToken()
   const history = useHistory()
   const VerifyPermissions = async ()=>{
-
     try{
       const res = await api.authentication()
       toast(res.message)
+      setUser({
+        ...res.data
+      })
       setLoad(false)
     }catch (e) {
       setLoad(false)
     }
-    // fetch('/api/authentication', {
-    //   method: 'GET',
-    //   headers: {
-    //     'AUTHENTICATION_TOKEN': token
-    //   },
-    // }).then((response) => {
-    //   return response.json();
-    // }).then((jsonData) => {
-    //   if(!jsonData.success){
-    //     toast('驗證失敗','error')
-    //     cleanAll()
-    //     setTimeout(()=>{
-    //
-    //       history.push('/login')
-    //     },1000)
-    //   }else {
-    //     setLoad(false)
-    //   }
-    // }).catch((err) => {
-    // })
+  }
+  const logout = () =>{
+    cleanAll()
+    toast('登出成功')
+    setTimeout(()=>{ history.push('/login')},1000)
   }
 
   const {name} = {...rest}
@@ -61,7 +48,7 @@ const RouteWrapper = (props) => {
       {...rest}
       render={props => (
 
-        <Layout {...props} name={name}>
+        <Layout {...props} name={name} state={state} logout={logout}>
           {
             !token?<Redirect  to="/login" exact/>:!load?(<Component {...props}  />):"權限驗證中(身分驗證)...."
           }
@@ -74,13 +61,16 @@ const RouteWrapper = (props) => {
 
 const mapStateToProps = (state) => ({
   state:{
-    token: state.userReducer.token
+    ...state.userReducer
   }
 });
 const mapDispatchToProps = (dispatch) => {
   return {
-    cleanAll:(value)=>{
-      dispatch(cleanAllAction(value))
+    cleanAll:()=>{
+      dispatch(cleanAllAction())
+    },
+    setUser:(value)=>{
+      dispatch(setUserAction(value))
     }
 
   };
